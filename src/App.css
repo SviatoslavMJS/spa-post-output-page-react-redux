@@ -1,19 +1,20 @@
-.body{
-    background-color: black;
-}
+
 .app-wraper{
-  color: white;
+  
   display: grid;
   grid-template-areas: 
-  "header content"
-   "header content";
+  "aside content"
+   "aside content";
+   
    grid-template-rows: 1fr 1fr ;
    grid-template-columns: 1fr 3fr ;
-
+   color: white;
+   min-width: 100%;
+   min-height: 1fr;
 }
 
 .header {
-grid-area: header; 
+grid-area: aside; 
 background-color: rgb(32, 32, 32);
 
 }

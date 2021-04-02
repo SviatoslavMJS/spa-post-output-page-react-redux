@@ -1,0 +1,15 @@
+.newPost {
+    display: block;
+    width:  100%;
+    margin: 0;
+    
+    
+    
+}
+.aside-elements{
+    display: grid;
+    grid-area: aside;
+    display: block;
+    width:  30%;
+   margin-left: 10px;
+}

@@ -11,7 +11,9 @@
 }
 
 .header button {
+    display: inline-block;
     border: 1px solid white;
     border-radius: 5px;
     font-weight: bold;
+    margin-left: 10px;
 }

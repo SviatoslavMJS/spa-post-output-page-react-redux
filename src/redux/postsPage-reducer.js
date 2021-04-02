@@ -1,37 +1,45 @@
 import * as axios from "axios";
+import { storeInLocal } from "./getFunctions";
 
+// function getFromLocal(value){
+//     let arr = [];
+//     for (let key in localStorage) {
+//         if (!localStorage.hasOwnProperty(key)) {
+//             continue;
+//         } else if (!key.startsWith(value)) {
+//             continue;
+//         }
+//         arr.push(JSON.parse(localStorage.getItem(key)))
+//     }
+//     return arr;
+// }
 
-function getData(url, value) {
-    axios.get(url)
-        .then(response => response.data)
-        .then(json => json.map(item => localStorage.setItem(`${value}/${item.id}`, JSON.stringify(item))))
+// function storeInLocal(url, value) {
+//     axios.get(url)
+//         .then(response => response.data)
+//         .then(json => json.map(item => localStorage.setItem(`${value}/${item.id}`, JSON.stringify(item))))
 
-    let arr = [];
-    for (let key in localStorage) {
-        if (!localStorage.hasOwnProperty(key)) {
-            continue;
-        } else if (!key.startsWith(value)) {
-            continue;
-        }
-        arr.push(JSON.parse(localStorage.getItem(key)))
-    }
-    return arr;
-};
-
-function storeInLocal(key, value) {
-    localStorage.setItem(key, value)
-    setTimeout(() => console.log(localStorage.getItem(key)), 1000)
-};
-
+//     let arr = [];
+//     for (let key in localStorage) {
+//         if (!localStorage.hasOwnProperty(key)) {
+//             continue;
+//         } else if (!key.startsWith(value)) {
+//             continue;
+//         }
+//         arr.push(JSON.parse(localStorage.getItem(key)))
+//     }
+//     return arr;
+// };
 
 
 let initialState = {
-    users: getData('https://jsonplaceholder.typicode.com/users', "users"),
-    posts: getData('https://jsonplaceholder.typicode.com/posts', "posts"),
-    comments: getData('https://jsonplaceholder.typicode.com/comments', "comments"),
+    users: [], /*storeInLocal('https://jsonplaceholder.typicode.com/users', "users"),*/
+    posts: [], /*storeInLocal('https://jsonplaceholder.typicode.com/posts', "posts"),*/
+    comments: [] ,/*storeInLocal('https://jsonplaceholder.typicode.com/comments', "comments"),*/
     currentPage: 1,
     postsCount: 3,
-    showSelectedPost: false
+    showSelectedPost: false,
+    postId: 1
 }
 
 
@@ -41,13 +49,13 @@ const postsPageReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case UPDATE_USERS:
-            return {}
+            return {...state, users: [... action.payload] }
 
         case UPDATE_POSTS:
-            return {}
+            return {...state, posts: [... action.payload]}
 
         case UPDATE_COMMENTS:
-            return {}
+            return {...state, comments: [... action.payload] }
 
         case CHANGE_SEL_POST_STATUS:
             return { ...state, showSelectedPost: action.payload }
@@ -65,20 +73,23 @@ const postsPageReducer = (state = initialState, action) => {
                 return { ...state, currentPage: state.currentPage + 1 }
             } else return {...state}
 
+        case CHANGE_POST_ID:
+            return { ...state, postId: action.payload }    
+
         default: return state;
     }
 }
 
-export const updateUsersA = () => {
-    return { type: UPDATE_USERS }
+export const updateUsersA = (payload) => {
+    return { type: UPDATE_USERS, payload}
 };
 
-export const updatePostsA = () => {
-    return { type: UPDATE_POSTS }
+export const updatePostsA = (payload) => {
+    return { type: UPDATE_POSTS, payload }
 };
 
-export const updateCommentsA = () => {
-    return { type: UPDATE_COMMENTS }
+export const updateCommentsA = (payload) => {
+    return { type: UPDATE_COMMENTS, payload }
 };
 
 export const changeSelectedPostStatusA = (value) => {
@@ -93,11 +104,16 @@ export const previousPageCountA = () => {
     return { type: PREV_PAGE_COUNT }
 }
 
+export const changePostId = (payload) => {
+    return { type: CHANGE_POST_ID, payload }
+}
+
 const UPDATE_USERS = "UPDATE_USERS";
 const UPDATE_POSTS = "UPDATE_POSTS";
 const UPDATE_COMMENTS = "UPDATE_COMMENTS";
 const CHANGE_SEL_POST_STATUS = "CHANGE_SEL_POST_STATUS";
 const NEXT_PAGE_COUNT = "NEXT_PAGE_COUNT";
 const PREV_PAGE_COUNT = "PREV_PAGE_COUNT";
+const CHANGE_POST_ID = "CHANGE_POST_ID"
 
 export default postsPageReducer;
