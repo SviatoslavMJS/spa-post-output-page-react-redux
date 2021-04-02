@@ -18,7 +18,7 @@ const Posts = (props) => {
         comments.map(c => (c.postId === item.id) ? count++ : null)
         users.map(i => (i.id === item.userId) ? name = i.name : null )
         return (item.id >= from && item.id <= to)
-            ? <Post key={item.id} post={item} name={name} count={count} /> : null
+            ? <Post key={item.id} post={item} name={name} count={count} dispatch={props.store.dispatch} /> : null
     });
 
     return (

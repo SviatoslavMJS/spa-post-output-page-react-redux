@@ -50,7 +50,7 @@ const postsPageReducer = (state = initialState, action) => {
             return {}
 
         case CHANGE_SEL_POST_STATUS:
-            return { ...state, showSelectedPost:!state.showSelectedPost }
+            return { ...state, showSelectedPost: action.payload }
 
         case PREV_PAGE_COUNT:
         
@@ -81,8 +81,8 @@ export const updateCommentsA = () => {
     return { type: UPDATE_COMMENTS }
 };
 
-export const changeSelectedPostStatusA = () => {
-    return { type: CHANGE_SEL_POST_STATUS }
+export const changeSelectedPostStatusA = (value) => {
+    return { type: CHANGE_SEL_POST_STATUS, payload: value}
 };
 
 export const nextPageCountA= () => {

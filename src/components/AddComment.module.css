@@ -1,0 +1,12 @@
+.wraper input {
+    border: 1px solid white;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 80%;
+    height: 20px;
+    margin: 10px auto;
+}
+
+button {
+    margin-left: 5px;
+}

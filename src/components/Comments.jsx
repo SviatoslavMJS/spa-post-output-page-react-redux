@@ -1,17 +1,19 @@
 import AddComment from "./AddComment";
-import s from "./Comment.module.css"; 
+import Comment from "./Comment";
+import s from "./Comments.module.css";
 
 
 const Comments = () => {
 
-    return(
+    return (
         <div className={s.container}> COMMENTS
+           
+            <div className={s.header}>
+                <button>ADD COMMENT</button>
+                <AddComment />
+            </div>
+            <Comment />
 
-        <div className={s.footer}>
-            <AddComment />
-            <button>ADD COMMENT</button>
-        </div>
-            
         </div>
     )
 }

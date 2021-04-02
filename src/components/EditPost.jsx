@@ -4,8 +4,9 @@ const EditPost = () => {
 
     return (
         <div className={s.wraper}>
-            <input type="text" placeholder="Theme"/>
-            <textarea name="body" id="txt" cols="30" rows="10"></textarea>
+            <div className={s.theme}><input type="text" placeholder="Theme"/></div>
+            <div className={s.body}><textarea placeholder="Input text" ></textarea></div>
+            <div className={s.btn}><button>SAVE</button></div>
         </div>
     )
 }
