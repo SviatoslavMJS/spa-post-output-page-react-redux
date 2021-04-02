@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import Posts from './components/Posts';
+import React from 'react';
+import Navbar from './components/Navbar';
+import SelectedPost from './components/SelectedPost';
+import store from './redux/store';
+
+
+
+class App extends React.Component {
+ 
+  render() {
+
+    return (
+      //<BrowserRouter >
+        <div className="app-wraper">
+          <div className="header">
+            <Navbar />
+          </div>
+
+          <div className="content">
+            { (store.getState().postsPage.showSelectedPost)
+            ? <SelectedPost /> 
+            : <Posts store={store}/> }
+          </div>
+        </div>
+     // </BrowserRouter>
+    )
+  }
+
 }
 
 export default App;
