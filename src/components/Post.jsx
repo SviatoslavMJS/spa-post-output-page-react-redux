@@ -2,7 +2,7 @@ import { changePostId, changeSelectedPostStatusA } from "../redux/postsPage-redu
 import s from "./Post.module.css";
 
 const Post = (props) => {
-  let handleClick = (id) => {
+  function handleClick(id) {
     props.dispatch(changeSelectedPostStatusA(true));
     props.dispatch(changePostId(id))
   };

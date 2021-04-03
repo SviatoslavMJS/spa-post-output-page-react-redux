@@ -1,61 +1,26 @@
-import * as axios from "axios";
-import { storeInLocal } from "./getFunctions";
-
-// function getFromLocal(value){
-//     let arr = [];
-//     for (let key in localStorage) {
-//         if (!localStorage.hasOwnProperty(key)) {
-//             continue;
-//         } else if (!key.startsWith(value)) {
-//             continue;
-//         }
-//         arr.push(JSON.parse(localStorage.getItem(key)))
-//     }
-//     return arr;
-// }
-
-// function storeInLocal(url, value) {
-//     axios.get(url)
-//         .then(response => response.data)
-//         .then(json => json.map(item => localStorage.setItem(`${value}/${item.id}`, JSON.stringify(item))))
-
-//     let arr = [];
-//     for (let key in localStorage) {
-//         if (!localStorage.hasOwnProperty(key)) {
-//             continue;
-//         } else if (!key.startsWith(value)) {
-//             continue;
-//         }
-//         arr.push(JSON.parse(localStorage.getItem(key)))
-//     }
-//     return arr;
-// };
-
 
 let initialState = {
-    users: [], /*storeInLocal('https://jsonplaceholder.typicode.com/users', "users"),*/
-    posts: [], /*storeInLocal('https://jsonplaceholder.typicode.com/posts', "posts"),*/
-    comments: [] ,/*storeInLocal('https://jsonplaceholder.typicode.com/comments', "comments"),*/
+    users: [], 
+    posts: [], 
+    comments: [] ,
     currentPage: 1,
     postsCount: 3,
     showSelectedPost: false,
-    postId: 1
+    postId: 1,
+    currentPost: {}
 }
-
-
-
 
 const postsPageReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case UPDATE_USERS:
-            return {...state, users: [... action.payload] }
+            return {...state, users: [...action.payload] }
 
         case UPDATE_POSTS:
-            return {...state, posts: [... action.payload]}
+            return {...state, posts: [...action.payload]}
 
         case UPDATE_COMMENTS:
-            return {...state, comments: [... action.payload] }
+            return {...state, comments: [...action.payload] }
 
         case CHANGE_SEL_POST_STATUS:
             return { ...state, showSelectedPost: action.payload }
@@ -74,7 +39,10 @@ const postsPageReducer = (state = initialState, action) => {
             } else return {...state}
 
         case CHANGE_POST_ID:
-            return { ...state, postId: action.payload }    
+            return { ...state, postId: action.payload } 
+            
+        case SET_CURRENT_POST:
+            return { ...state, currentPost: action.payload }
 
         default: return state;
     }
@@ -93,10 +61,10 @@ export const updateCommentsA = (payload) => {
 };
 
 export const changeSelectedPostStatusA = (value) => {
-    return { type: CHANGE_SEL_POST_STATUS, payload: value}
+    return { type: CHANGE_SEL_POST_STATUS, payload: value }
 };
 
-export const nextPageCountA= () => {
+export const nextPageCountA = () => {
     return { type: NEXT_PAGE_COUNT }
 }
 
@@ -108,12 +76,17 @@ export const changePostId = (payload) => {
     return { type: CHANGE_POST_ID, payload }
 }
 
+export const setCurrentPost = (payload) => {
+    return { type: SET_CURRENT_POST, payload }
+}
+
 const UPDATE_USERS = "UPDATE_USERS";
 const UPDATE_POSTS = "UPDATE_POSTS";
 const UPDATE_COMMENTS = "UPDATE_COMMENTS";
 const CHANGE_SEL_POST_STATUS = "CHANGE_SEL_POST_STATUS";
 const NEXT_PAGE_COUNT = "NEXT_PAGE_COUNT";
 const PREV_PAGE_COUNT = "PREV_PAGE_COUNT";
-const CHANGE_POST_ID = "CHANGE_POST_ID"
+const CHANGE_POST_ID = "CHANGE_POST_ID";
+const SET_CURRENT_POST = "SET_CURRENT_POST"
 
 export default postsPageReducer;

@@ -1,6 +1,6 @@
 import * as axios from "axios";
 
-export function getFromLocal(value){
+export function getFromLocal(value) {
     let arr = [];
     for (let key in localStorage) {
         if (!localStorage.hasOwnProperty(key)) {
@@ -19,5 +19,17 @@ export function storeInLocal(url, value) {
         .then(response => response.data)
         .then(json => json.map(item => localStorage.setItem(`${value}/${item.id}`, JSON.stringify(item))))
 
-    
-};
+}
+
+export function getCurrentPost(url, value, id) {
+     return axios.get(url)
+        .then(response => response.data)
+        .then(json => { 
+            if (localStorage.getItem(`${value}/${id}`)) {
+                return JSON.parse(localStorage.getItem(`${value}/${id}`));
+            } else {
+                localStorage.setItem(`${value}/${id}`, JSON.stringify(json))
+                return JSON.parse( localStorage.getItem(`${value}/${id}`))
+            } })
+          
+}

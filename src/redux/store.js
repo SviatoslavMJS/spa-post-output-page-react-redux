@@ -11,6 +11,5 @@ let reducers = combineReducers({
 
 let store = createStore(reducers);
 
-window.state2 = store.getState().postsPage;
 
 export default store;
